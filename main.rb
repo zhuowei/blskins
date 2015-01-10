@@ -8,7 +8,6 @@ get '/' do
 end
 
 post '/upload' do
-	p "Upload!"
 	username = params[:name].downcase()
 	if username.length < 1 or /[^a-zA-Z0-9_]/.match(username)
 		redirect("/nameerr.html")
@@ -20,7 +19,7 @@ post '/upload' do
 		redirect("/fileerr.html")
 		return
 	end
-	File.rename(fileobj[:tempfile], "blskins/" + username + ".png")
+	File.copy_stream(fileobj[:tempfile], "blskins/" + username + ".png")
 	pushsite
 	redirect("/success.html")
 end
