@@ -14,8 +14,12 @@ post '/upload' do
 		return
 	end
 	fileobj = params[:file]
+	if fileobj == nil
+		redirect("/fileerr.html")
+		return
+	end
 	file = fileobj[:filename]
-	if file == nil or file.length < 1 or not file.downcase().end_with?(".png")
+	if file.length < 1 or not file.downcase().end_with?(".png")
 		redirect("/fileerr.html")
 		return
 	end
