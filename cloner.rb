@@ -1,7 +1,5 @@
-#sitepath = "git@github.com:blskins/blskins.github.io.git"
-sitepath = "git@bitbucket.org:blskins/blskins.git"
-
 def clonesite()
+	sitepath = "git@bitbucket.org:blskins/blskins.git"
 	wd = ENV["PWD"]
 	ENV["GIT_SSH"] = wd + "/ssh-wrap"
 	`git clone #{sitepath} blskins`
