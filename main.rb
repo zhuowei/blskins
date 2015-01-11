@@ -23,3 +23,12 @@ post '/upload' do
 	pushsite
 	redirect("/success.html")
 end
+
+get '/blskins/:name' do
+	file = 'blskins/' + params[:name]
+	if File.exist? file
+		send_file(file)
+	else
+		halt 404
+	end
+end
