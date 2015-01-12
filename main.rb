@@ -1,13 +1,24 @@
 require "sinatra"
 require_relative "cloner"
+require_relative "verify_lbsg"
 
+`rm -rf blskins`
 clonesite
 
 get '/' do
+	forwarded_proto = env["HTTP_X_FORWARDED_PROTO"]
+	if forwarded_proto != nil and forward_proto != "https"
+		redirect("https://blskins.herokuapp.com")
+		return
+	end
 	send_file "public/index.html"
 end
 
-post '/upload' do
+post '/upload_lbsg' do
+	if not verify_lbsg(params[:name], params[:password])
+		redirect("/lbsg_err.html")
+		return
+	end
 	username = params[:name].downcase()
 	if username.length < 1 or /[^a-zA-Z0-9_]/.match(username)
 		redirect("/nameerr.html")
