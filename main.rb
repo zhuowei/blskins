@@ -7,7 +7,7 @@ clonesite
 
 get '/' do
 	forwarded_proto = env["HTTP_X_FORWARDED_PROTO"]
-	if forwarded_proto != nil and forward_proto != "https"
+	if forwarded_proto != nil and forwarded_proto != "https"
 		redirect("https://blskins.herokuapp.com")
 		return
 	end
