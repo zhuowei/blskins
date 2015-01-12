@@ -1,9 +1,27 @@
+at_exit {
+	pushsite
+}
+
+# http://stackoverflow.com/questions/11105556/where-do-i-put-code-in-sinatra-that-i-want-to-execute-when-the-app-is-shutdown
+
 require "sinatra"
 require_relative "cloner"
 require_relative "verify_lbsg"
 
 `rm -rf blskins`
 clonesite
+
+$needs_push = false
+
+Thread.new {
+	while true
+		if $needs_push
+			pushsite
+			$needs_push = false
+		end
+		sleep 60*5
+	end
+}
 
 get '/' do
 	forwarded_proto = env["HTTP_X_FORWARDED_PROTO"]
@@ -35,7 +53,7 @@ post '/upload_lbsg' do
 		return
 	end
 	File.copy_stream(fileobj[:tempfile], "blskins/" + username + ".png")
-	pushsite
+	$needs_push = true
 	redirect("/success.html")
 end
 
