@@ -1,9 +1,12 @@
 require 'net/http'
 require 'json'
+require 'base64'
 
 def verify_lbsg(username, password)
 	begin
-		res = Net::HTTP::post_form(URI("http://data.lbsg.net/apiv4/login.php"), {:username => username, :password => password})
+		
+		res = Net::HTTP::post_form(URI("http://account.lbsg.net/newstats/settings.php"),
+			{:username => username, :password => Base64::encode64(password)})
 		if res == nil
 			return false
 		end
