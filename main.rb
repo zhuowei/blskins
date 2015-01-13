@@ -1,5 +1,6 @@
 at_exit {
 	pushsite
+	`killall nginx`
 }
 
 # http://stackoverflow.com/questions/11105556/where-do-i-put-code-in-sinatra-that-i-want-to-execute-when-the-app-is-shutdown
@@ -7,6 +8,16 @@ at_exit {
 require "sinatra"
 require_relative "cloner"
 require_relative "verify_lbsg"
+
+def startnginx()
+	if ENV["PORT"] == nil
+		ENV["PORT"] = "4567"
+	end
+	proc = Process.spawn("./startnginx.sh")
+	Process.detach(proc)
+end
+
+startnginx
 
 `rm -rf blskins`
 clonesite
