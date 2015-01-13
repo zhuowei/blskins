@@ -1,6 +1,9 @@
 at_exit {
 	pushsite
-	`killall nginx`
+	begin
+		`killall nginx`
+	rescue Errno::ENOENT
+	end
 }
 
 # http://stackoverflow.com/questions/11105556/where-do-i-put-code-in-sinatra-that-i-want-to-execute-when-the-app-is-shutdown
