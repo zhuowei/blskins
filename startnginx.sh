@@ -8,6 +8,11 @@ http {
 
 sendfile on;
 
+upstream appserver {
+	server unix:/tmp/blskins.socket;
+	keepalive 16;
+}
+
 server {
 	root "`pwd`";
 	listen $PORT;
@@ -22,7 +27,9 @@ server {
 	location /blskins/ {
 	}
 	location / {
-		proxy_pass http://unix:/tmp/blskins.socket:/;
+		proxy_pass http://appserver;
+		proxy_http_version 1.1;
+		proxy_set_header Connection "";
 	}
 }
 
