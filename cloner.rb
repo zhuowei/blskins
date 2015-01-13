@@ -8,6 +8,10 @@ def clonesite()
 end
 
 def pushsite()
+	if File.exist? "no-upload"
+		p "Uploading disabled"
+		return
+	end
 	wd = ENV["PWD"]
 	ENV["GIT_SSH"] = wd + "/ssh-wrap"
 	`git -C blskins add .`
