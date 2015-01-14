@@ -9,8 +9,10 @@ at_exit {
 # http://stackoverflow.com/questions/11105556/where-do-i-put-code-in-sinatra-that-i-want-to-execute-when-the-app-is-shutdown
 
 require "sinatra"
+require "net/http"
 require_relative "cloner"
 require_relative "verify_lbsg"
+require_relative "verify_epicmc"
 
 def startnginx()
 	if ENV["PORT"] == nil
@@ -51,6 +53,18 @@ post '/upload_lbsg' do
 		redirect("/lbsg_err.html")
 		return
 	end
+	upload_impl params
+end
+
+post '/upload_epicmc' do
+	if not verify_epicmc(params[:name], params[:password])
+		redirect("/epicmc_err.html")
+		return
+	end
+	upload_impl params
+end
+
+def upload_impl(params)
 	username = params[:name].downcase()
 	if username.length < 1 or /[^a-zA-Z0-9_]/.match(username)
 		redirect("/nameerr.html")
@@ -62,11 +76,28 @@ post '/upload_lbsg' do
 		return
 	end
 	file = fileobj[:filename]
-	if file.length < 1 or not file.downcase().end_with?(".png")
-		redirect("/fileerr.html")
+	#if file.length < 1 or not file.downcase().end_with?(".png")
+	#	redirect("/fileerr.html")
+	#	return
+	#end
+	File.copy_stream(fileobj[:tempfile], "blskins/" + username + ".png")
+	$needs_push = true
+	redirect("/success.html")
+end
+
+post '/upload_desktop' do
+	username = params[:name].downcase()
+	if username.length < 1 or /[^a-zA-Z0-9_]/.match(username)
+		redirect("/nameerr.html")
 		return
 	end
-	File.copy_stream(fileobj[:tempfile], "blskins/" + username + ".png")
+	response = Net::HTTP::get_response(URI("http://s3.amazonaws.com/MinecraftSkins/" + params[:name] + ".png"))
+	if response.code.to_i >= 400
+		redirect("/nameerr.html")
+	end
+	File.open("blskins/" + username + ".png", "wb") do |file|
+		file.write(response.body)
+	end
 	$needs_push = true
 	redirect("/success.html")
 end

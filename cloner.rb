@@ -1,4 +1,9 @@
 def clonesite()
+	if File.exist? "no-download"
+		p "Downloading disabled"
+		`mkdir blskins`
+		return
+	end
 	sitepath = "git@bitbucket.org:blskins/blskins.git"
 	wd = ENV["PWD"]
 	ENV["GIT_SSH"] = wd + "/ssh-wrap"

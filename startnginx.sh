@@ -1,4 +1,6 @@
 #!/bin/sh
+my_hostname="blskins.herokuapp.com"
+[ `whoami` = zhuowei ] && my_hostname="localhost:$PORT"
 cat >nginx.conf << ASDF
 
 error_log stderr crit;
@@ -16,7 +18,7 @@ upstream appserver {
 server {
 	root "`pwd`";
 	listen $PORT;
-	server_name blskins.herokuapp.com;
+	server_name $my_hostname;
 
 	access_log off;
 
@@ -30,7 +32,7 @@ server {
 		proxy_pass http://appserver;
 		proxy_http_version 1.1;
 		proxy_set_header Connection "";
-		proxy_set_header Host "blskins.herokuapp.com";
+		proxy_set_header Host "$my_hostname";
 	}
 }
 
