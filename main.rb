@@ -10,9 +10,12 @@ at_exit {
 
 require "sinatra"
 require "net/http"
+require 'thread'
 require_relative "cloner"
 require_relative "verify_lbsg"
 require_relative "verify_epicmc"
+
+repo_conch = Mutex.new
 
 def startnginx()
 	if ENV["PORT"] == nil
@@ -32,7 +35,9 @@ $needs_push = false
 Thread.new {
 	while true
 		if $needs_push
-			pushsite
+			repo_conch.synchronize {
+				pushsite
+			}
 			$needs_push = false
 		end
 		sleep 60*5
@@ -80,7 +85,9 @@ def upload_impl(params)
 	#	redirect("/fileerr.html")
 	#	return
 	#end
-	File.copy_stream(fileobj[:tempfile], "blskins/" + username + ".png")
+	repo_conch.synchronize {
+		File.copy_stream(fileobj[:tempfile], "blskins/" + username + ".png")
+	}
 	$needs_push = true
 	redirect("/success.html")
 end
@@ -95,9 +102,11 @@ post '/upload_desktop' do
 	if response.code.to_i >= 400
 		redirect("/nameerr.html")
 	end
-	File.open("blskins/" + username + ".png", "wb") do |file|
-		file.write(response.body)
-	end
+	repo_conch.synchronize {
+		File.open("blskins/" + username + ".png", "wb") do |file|
+			file.write(response.body)
+		end
+	}
 	$needs_push = true
 	redirect("/success.html")
 end
