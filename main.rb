@@ -15,7 +15,7 @@ require_relative "cloner"
 require_relative "verify_lbsg"
 require_relative "verify_epicmc"
 
-$repo_conch = Mutex.new
+#$repo_conch = Mutex.new
 
 def startnginx()
 	if ENV["PORT"] == nil
@@ -35,9 +35,7 @@ $needs_push = false
 Thread.new {
 	while true
 		if $needs_push
-			$repo_conch.synchronize {
-				pushsite
-			}
+			pushsite
 			$needs_push = false
 		end
 		sleep 60*5
@@ -85,9 +83,7 @@ def upload_impl(params)
 	#	redirect("/fileerr.html")
 	#	return
 	#end
-	$repo_conch.synchronize {
-		File.copy_stream(fileobj[:tempfile], "blskins/" + username + ".png")
-	}
+	File.copy_stream(fileobj[:tempfile], "blskins/" + username + ".png")
 	$needs_push = true
 	redirect("/success.html")
 end
@@ -102,11 +98,9 @@ post '/upload_desktop' do
 	if response.code.to_i >= 400
 		redirect("/nameerr.html")
 	end
-	$repo_conch.synchronize {
-		File.open("blskins/" + username + ".png", "wb") do |file|
-			file.write(response.body)
-		end
-	}
+	File.open("blskins/" + username + ".png", "wb") do |file|
+		file.write(response.body)
+	end
 	$needs_push = true
 	redirect("/success.html")
 end
