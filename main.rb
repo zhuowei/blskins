@@ -38,7 +38,7 @@ Thread.new {
 			pushsite
 			$needs_push = false
 		end
-		sleep 60*5
+		sleep 60*3
 	end
 }
 

@@ -22,6 +22,6 @@ def pushsite()
 	`git -C blskins add .`
 	`git -C blskins commit -m update`
 	`git -C blskins fetch origin`
-	`git -C blskins merge origin/master`
+	`git -C blskins merge -Xours origin/master`
 	`git -C blskins push -f origin master`
 end
