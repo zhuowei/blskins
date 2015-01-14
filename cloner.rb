@@ -21,7 +21,7 @@ def pushsite()
 	ENV["GIT_SSH"] = wd + "/ssh-wrap"
 	`git -C blskins add .`
 	`git -C blskins commit -m update`
-	`git -C blskins fetch origin master`
+	`git -C blskins fetch origin`
 	`git -C blskins merge origin/master`
 	`git -C blskins push -f origin master`
 end
