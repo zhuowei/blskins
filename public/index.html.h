@@ -1,7 +1,7 @@
 #include "header.html"
 <p>You need an account from any of these servers in order to upload a skin.
 This is to prevent other people from uploading a skin in your name.</p>
-<p>Once you upload a skin or cape, it will show up in <b>all servers</b> to all players using BlockLauncher or ZCodeMT's skin mod, not just the server you validated your identity with.</p>
+<p>Once you upload a skin or cape, it will show up in <b>all servers</b> to all users of BlockLauncher or ZCodeMT's skin mod, not just the server you validated your identity with.</p>
 <table>
 <tr>
 <td>Lifeboat:</td>
@@ -18,7 +18,7 @@ This is to prevent other people from uploading a skin in your name.</p>
 <tr>
 <td>InPVP:</td>
 <td><a href="inpvp.html">Skin</a></td>
-<td><a href="inpvp_cape.html">Cape</a></td>
+<td><a href="inpvp_capes.html">Cape</a></td>
 <td><a href="http://inpvp.net">Info</a></td>
 </tr>
 <tr>

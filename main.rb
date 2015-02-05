@@ -14,6 +14,7 @@ require 'thread'
 require_relative "cloner"
 require_relative "verify_lbsg"
 require_relative "verify_epicmc"
+require_relative "verify_inpvp"
 
 #$repo_conch = Mutex.new
 
@@ -29,6 +30,7 @@ startnginx
 
 `rm -rf blskins`
 clonesite
+`mkdir -p blskins/capes/`
 
 $needs_push = false
 
@@ -67,6 +69,14 @@ post '/upload_epicmc' do
 	upload_impl params
 end
 
+post '/upload_inpvp' do
+	if not verify_inpvp(params[:name], params[:password])
+		redirect("/inpvp_err.html")
+		return
+	end
+	upload_impl params
+end
+
 def upload_impl(params)
 	username = params[:name].downcase()
 	if username.length < 1 or /[^a-zA-Z0-9_]/.match(username)
@@ -83,7 +93,11 @@ def upload_impl(params)
 	#	redirect("/fileerr.html")
 	#	return
 	#end
-	File.copy_stream(fileobj[:tempfile], "blskins/" + username + ".png")
+	filename = "blskins/" + username + ".png"
+	if params[:cape] == "1"
+		filename = "blskins/capes/" + username + ".png"
+	end
+	File.copy_stream(fileobj[:tempfile], filename)
 	$needs_push = true
 	redirect("/success.html")
 end

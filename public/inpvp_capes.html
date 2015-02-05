@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>BlockLauncher Cape Upload: InPVP</title>
+<style>
+body {
+ font-family: Arial, sans-serif;
+ margin: 0;
+ padding: 0;
+}
+h1 {
+ background-color: #4caf50;
+ color: white;
+ margin: 0;
+ font-size: 24px;
+ padding: 10px;
+ width: 100%;
+ box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);
+}
+.content {
+ margin: 5px;
+}
+</style>
+</head>
+<body>
+<h1>BlockLauncher Cape Upload: InPVP</h1>
+<div class="content">
+<form action="/upload_inpvp" method="post" enctype="multipart/form-data">
+<table>
+<tr>
+<td>InPVP Username:</td><td><input type="text" name="name"></td>
+</tr>
+<tr>
+<td>InPVP Password:</td><td><input type="password" name="password"></td>
+</tr>
+<tr>
+<td>Cape:</td><td><input type="file" name="file"></td>
+</tr>
+<tr>
+<td><input type="submit" value="Upload"></td>
+</tr>
+</table>
+<input type="hidden" name="cape" value="1">
+</form>
+</div>
+</body>
+</html>
