@@ -1,15 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>BlockLauncher Skin Upload</title>
+<title>Copy skin from Desktop edition</title>
 <style>
 body {
-	font-family: Arial, sans-serif;
+ font-family: Arial, sans-serif;
+ margin: 0;
+ padding: 0;
+}
+h1 {
+ background-color: #4caf50;
+ color: white;
+ margin: 0;
+ font-size: 24px;
+ padding: 10px;
+ width: 100%;
+ box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);
+}
+.content {
+ margin: 5px;
 }
 </style>
 </head>
 <body>
 <h1>Copy skin from Desktop edition</h1>
+<div class="content">
 <form action="/upload_desktop" method="post" enctype="multipart/form-data">
 <table>
 <tr>
@@ -21,5 +36,6 @@ body {
 </table>
 <p>Desktop username must have the correct capitalization: If your username is "example", "Example" won't work.</p>
 </form>
+</div>
 </body>
 </html>

@@ -1,30 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>BlockLauncher Skin Upload</title>
-<style>
-body {
- font-family: Arial, sans-serif;
- margin: 0;
- padding: 0;
-}
-h1 {
- background-color: #4caf50;
- color: white;
- margin: 0;
- font-size: 24px;
- padding: 10px;
- width: 100%;
- box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);
-}
-.content {
- margin: 5px;
-}
-</style>
-</head>
-<body>
-<h1>BlockLauncher Skin Upload</h1>
-<div class="content">
+#include "header.html"
 <p>You need an account from any of these servers in order to upload a skin.
 This is to prevent other people from uploading a skin in your name.</p>
 <p>Once you upload a skin or cape, it will show up in <b>all servers</b> to all players using BlockLauncher or ZCodeMT's skin mod, not just the server you validated your identity with.</p>
@@ -53,6 +27,4 @@ This is to prevent other people from uploading a skin in your name.</p>
 </tr>
 </table>
 <p style="font-size: 9pt">When uploading a skin, this site only store the skin itself, your username, and your IP address (for diagnostic purposes). This information is not shared with third parties. We do not store any passwords or e-mails submitted: they are just used temporarily to verify who you are.</p>
-</div>
-</body>
-</html>
+#include "footer.html"

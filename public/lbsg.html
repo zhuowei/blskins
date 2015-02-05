@@ -1,15 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>BlockLauncher Skin Upload</title>
+<title>BlockLauncher Skin Upload: LBSG</title>
 <style>
 body {
-	font-family: Arial, sans-serif;
+ font-family: Arial, sans-serif;
+ margin: 0;
+ padding: 0;
+}
+h1 {
+ background-color: #4caf50;
+ color: white;
+ margin: 0;
+ font-size: 24px;
+ padding: 10px;
+ width: 100%;
+ box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);
+}
+.content {
+ margin: 5px;
 }
 </style>
 </head>
 <body>
-<h1>BlockLauncher Skin Upload</h1>
+<h1>BlockLauncher Skin Upload: LBSG</h1>
+<div class="content">
 <form action="/upload_lbsg" method="post" enctype="multipart/form-data">
 <table>
 <tr>
@@ -25,6 +40,8 @@ body {
 <td><input type="submit" value="Upload"></td>
 </tr>
 </table>
+<input type="hidden" name="cape" value="0">
 </form>
+</div>
 </body>
 </html>

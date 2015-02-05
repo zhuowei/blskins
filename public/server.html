@@ -1,0 +1,27 @@
+#ifndef CAPE
+#define PROMPT_NAME Skin
+#define CAPE_MODE "0"
+#else
+#define PROMPT_NAME Cape
+#define CAPE_MODE "1"
+#endif
+#define TITLE BlockLauncher PROMPT_NAME Upload: SERVERNAME
+#include "header.html"
+<form action=SERVERACTION method="post" enctype="multipart/form-data">
+<table>
+<tr>
+<td>SERVERNAME Username:</td><td><input type="text" name="name"></td>
+</tr>
+<tr>
+<td>SERVERNAME Password:</td><td><input type="password" name="password"></td>
+</tr>
+<tr>
+<td>PROMPT_NAME:</td><td><input type="file" name="file"></td>
+</tr>
+<tr>
+<td><input type="submit" value="Upload"></td>
+</tr>
+</table>
+<input type="hidden" name="cape" value=CAPE_MODE>
+</form>
+#include "footer.html"
