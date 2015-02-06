@@ -8,7 +8,7 @@ def verify_inpvp(username, password)
 		http = Net::HTTP::new(uri.host, uri.port)
 		http.use_ssl = true
 		req = Net::HTTP::Post.new(uri.request_uri)
-		req.body = JSON.dump({"username" => username, "password" => Base64::encode64(password)})
+		req.body = JSON.dump({"username" => username, "password" => Base64::encode64(password).strip})
 		req["Content-Type"] = "application/json"
 		res = http.request(req)
 		if res == nil

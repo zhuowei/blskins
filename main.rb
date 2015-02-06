@@ -15,6 +15,7 @@ require_relative "cloner"
 require_relative "verify_lbsg"
 require_relative "verify_epicmc"
 require_relative "verify_inpvp"
+require_relative "writecape"
 
 #$repo_conch = Mutex.new
 
@@ -96,8 +97,10 @@ def upload_impl(params)
 	filename = "blskins/" + username + ".png"
 	if params[:cape] == "1"
 		filename = "blskins/capes/" + username + ".png"
+		writecape(fileobj[:tempfile], filename)
+	else
+		File.copy_stream(fileobj[:tempfile], filename)
 	end
-	File.copy_stream(fileobj[:tempfile], filename)
 	$needs_push = true
 	redirect("/success.html")
 end
