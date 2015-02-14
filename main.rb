@@ -1,10 +1,10 @@
-at_exit {
-	pushsite
-	begin
-		`killall nginx`
-	rescue Errno::ENOENT
-	end
-}
+#at_exit {
+#	pushsite
+#	begin
+#		`killall nginx`
+#	rescue Errno::ENOENT
+#	end
+#}
 
 # http://stackoverflow.com/questions/11105556/where-do-i-put-code-in-sinatra-that-i-want-to-execute-when-the-app-is-shutdown
 
@@ -27,11 +27,11 @@ def startnginx()
 	Process.detach(proc)
 end
 
-startnginx
+#startnginx
 
 #`rm -rf blskins`
 #clonesite
-`mkdir -p blskins/capes/`
+#`mkdir -p blskins/capes/`
 
 $needs_push = false
 
