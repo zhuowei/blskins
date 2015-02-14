@@ -9,6 +9,7 @@ server {
 	server_name blskins.ablecuboid.com;
 
 	access_log off;
+	log_not_found off;
 
 	location /blskins/ {
 	}
