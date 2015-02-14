@@ -9,8 +9,10 @@ def writecape(file, outpath)
 	}[0]
 	if img.columns >= 64 and img.rows >= 32
 		File.copy_stream(file, outpath)
+		File.chmod(0664, outpath)
 		return
 	end
 	img2 = img.extent(64, 32)
 	img2.write(outpath)
+	File.chmod(0664, outpath)
 end
