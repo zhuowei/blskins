@@ -102,6 +102,7 @@ def upload_impl(params)
 		writecape(fileobj[:tempfile], filename)
 	else
 		File.copy_stream(fileobj[:tempfile], filename)
+		File.chmod(0664, filename)
 	end
 	$needs_push = true
 	redirect("/success.html")
