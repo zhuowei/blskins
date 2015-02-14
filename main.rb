@@ -17,6 +17,8 @@ require_relative "verify_epicmc"
 require_relative "verify_inpvp"
 require_relative "writecape"
 
+File.umask(0002)
+
 #$repo_conch = Mutex.new
 
 def startnginx()
