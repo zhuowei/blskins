@@ -29,21 +29,21 @@ end
 
 startnginx
 
-`rm -rf blskins`
-clonesite
+#`rm -rf blskins`
+#clonesite
 `mkdir -p blskins/capes/`
 
 $needs_push = false
 
-Thread.new {
-	while true
-		if $needs_push
-			pushsite
-			$needs_push = false
-		end
-		sleep 60*3
-	end
-}
+#Thread.new {
+#	while true
+#		if $needs_push
+#			pushsite
+#			$needs_push = false
+#		end
+#		sleep 60*3
+#	end
+#}
 
 get '/' do
 	forwarded_proto = env["HTTP_X_FORWARDED_PROTO"]
