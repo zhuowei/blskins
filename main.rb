@@ -48,11 +48,6 @@ $needs_push = false
 #}
 
 get '/' do
-	forwarded_proto = env["HTTP_X_FORWARDED_PROTO"]
-	if forwarded_proto != nil and forwarded_proto != "https"
-		redirect("https://blskins.herokuapp.com")
-		return
-	end
 	send_file "public/index.html"
 end
 
