@@ -141,7 +141,6 @@ post '/upload_desktop' do
 	File.open("blskins/" + username + ".png", "wb") do |file|
 		file.write(response.body)
 	end
-	purge_cache(filename)
 	$needs_push = true
 	redirect("/success.html")
 end
