@@ -11,11 +11,14 @@
 require "sinatra"
 require "net/http"
 require 'thread'
+require 'cloudflare'
+require 'eventmachine'
 require_relative "cloner"
 require_relative "verify_lbsg"
 require_relative "verify_epicmc"
 require_relative "verify_inpvp"
 require_relative "writecape"
+require_relative "cf_key"
 
 File.umask(0002)
 
@@ -46,6 +49,15 @@ $needs_push = false
 #		sleep 60*3
 #	end
 #}
+
+$cf = CloudFlare::connection($cf_user_key, $cf_user_email)
+
+def purge_cache(filename)
+	url = "http://blskins.ablecuboid.com/" + filename
+	EventMachine.defer {
+		$cf.zone_file_purge("ablecuboid.com", url)
+	}
+end
 
 get '/' do
 	send_file "public/index.html"
@@ -81,6 +93,18 @@ def upload_impl(params)
 		redirect("/nameerr.html")
 		return
 	end
+	if params[:remove]
+		filename = "blskins/" + username + ".png"
+		if params[:cape] == "1"
+			filename = "blskins/capes/" + username + ".png"
+		end
+		if File.exist? filename
+			File.delete filename
+			purge_cache(filename)
+		end
+		redirect("/success_remove.html");
+		return
+	end
 	fileobj = params[:file]
 	if fileobj == nil
 		redirect("/fileerr.html")
@@ -99,6 +123,7 @@ def upload_impl(params)
 		File.copy_stream(fileobj[:tempfile], filename)
 		File.chmod(0664, filename)
 	end
+	purge_cache(filename)
 	$needs_push = true
 	redirect("/success.html")
 end
@@ -116,6 +141,7 @@ post '/upload_desktop' do
 	File.open("blskins/" + username + ".png", "wb") do |file|
 		file.write(response.body)
 	end
+	purge_cache(filename)
 	$needs_push = true
 	redirect("/success.html")
 end

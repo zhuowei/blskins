@@ -1,9 +1,11 @@
 #ifndef CAPE
 #define PROMPT_NAME Skin
 #define CAPE_MODE "0"
+#define PROMPT_REMOVE_NAME skin
 #else
 #define PROMPT_NAME Cape
 #define CAPE_MODE "1"
+#define PROMPT_REMOVE_NAME cape
 #endif
 #define TITLE BlockLauncher PROMPT_NAME Upload: SERVERNAME
 #include "header.html"
@@ -16,12 +18,18 @@
 <td>SERVERNAME Password:</td><td><input type="password" name="password"></td>
 </tr>
 <tr>
-<td>PROMPT_NAME:</td><td><input type="file" name="file"></td>
+<td>PROMPT_NAME:</td><td><input type="file" name="file" id="mainfile"></td>
 </tr>
+<tr>
+<td></td><td><label for="removecheckbox">Or remove PROMPT_REMOVE_NAME:</label>
+<input type="checkbox" onclick="document.getElementById('mainfile').disabled = this.checked" id="removecheckbox" name="remove"></td>
 <tr>
 <td><input type="submit" value="Upload"></td>
 </tr>
 </table>
 <input type="hidden" name="cape" value=CAPE_MODE>
 </form>
+<script>
+document.getElementById('mainfile').disabled = document.getElementById('removecheckbox').checked;
+</script>
 #include "footer.html"

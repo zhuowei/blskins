@@ -34,14 +34,20 @@ h1 {
 <td>LBSG Password:</td><td><input type="password" name="password"></td>
 </tr>
 <tr>
-<td>Cape:</td><td><input type="file" name="file"></td>
+<td>Cape:</td><td><input type="file" name="file" id="mainfile"></td>
 </tr>
+<tr>
+<td></td><td><label for="removecheckbox">Or remove cape:</label>
+<input type="checkbox" onclick="document.getElementById('mainfile').disabled = this.checked" id="removecheckbox" name="remove"></td>
 <tr>
 <td><input type="submit" value="Upload"></td>
 </tr>
 </table>
 <input type="hidden" name="cape" value="1">
 </form>
+<script>
+document.getElementById('mainfile').disabled = document.getElementById('removecheckbox').checked;
+</script>
 </div>
 </body>
 </html>
