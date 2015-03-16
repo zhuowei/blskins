@@ -50,13 +50,13 @@ $needs_push = false
 #	end
 #}
 
-$cf = CloudFlare::connection($cf_user_key, $cf_user_email)
+#$cf = CloudFlare::connection($cf_user_key, $cf_user_email)
 
 def purge_cache(filename)
-	url = "http://blskins.ablecuboid.com/" + filename
-	EventMachine.defer {
-		$cf.zone_file_purge("ablecuboid.com", url)
-	}
+#	url = "http://blskins.ablecuboid.com/" + filename
+#	EventMachine.defer {
+#		$cf.zone_file_purge("ablecuboid.com", url)
+#	}
 end
 
 get '/' do
